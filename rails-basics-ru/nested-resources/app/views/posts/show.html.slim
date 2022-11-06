@@ -1,0 +1,37 @@
+- content_for :title do
+  = @post.title
+p
+  strong.me-2 Body:
+  = @post.body
+/ BEGIN
+- if @post.comments.present?
+  table.table.table-striped.table-hover.mb-5
+    thead
+      tr
+        th{ scope = 'col' } #
+        th Comments
+        th Actions
+
+    tbody
+      - @post.comments.each_with_index do |comment, i|
+        tr
+          th{ scope = 'row' } = i + 1
+          td = comment.body
+          td.d-flex
+            .me-4 = link_to 'Edit', edit_comment_path(@post, comment.id)
+            = link_to 'Destroy', comment_path(comment.id), data: { confirm: 'Are you sure?' }, method: :delete
+
+= simple_form_for(@post.comments.build, url: post_comments_path(@post)) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  = f.input :body
+
+  = f.button :submit, class: 'btn btn-success mt-4 btn-block'
+
+/ END
+hr
+
+.d-flex
+  = link_to 'Edit', edit_post_path(@post), class: 'btn btn-outline-primary mr-2'
+  = link_to 'Back', :back, class: 'btn btn-outline-primary'
