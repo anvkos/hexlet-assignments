@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    models:
+      # BEGIN
+      post: Post
+      # END
+      post/comment: Comment
+    attributes:
+      # BEGIN
+      post:
+        title: Title
+        body: Body
+      # END
+      post/comment:
+        body: Body
+
+    errors:
+      models:
+        post:
+          attributes:
+            # BEGIN
+            title:
+              blank: can't be blank
+            body:
+              too_long: is too long(maximum is 500 symbols)
+            # END
