@@ -1,0 +1,33 @@
+= content_for :title do
+  / page title (h2)
+  = t('.title')
+
+table.table.table-striped.table-hover.mb-5
+  thead
+    tr
+      th{ scope = 'col' } #
+      th
+        / table title
+        = t('.table_title')
+      th
+      th
+
+  tbody
+    - @posts.each_with_index do |post, i|
+      tr
+        th{ scope = 'row' } = i + 1
+        td = post.title
+        td.d-flex
+          / posts links
+          = link_to t('show'), post, class: 'me-4'
+          / BEGIN
+          - if policy(post).edit?
+            = link_to t('edit'), edit_post_path(post), class: 'me-4'
+          - if policy(post).destroy?
+            = link_to t('destroy'), post, method: :delete, data: { confirm: t('destroy_confirmation') }, class: 'me-4'
+          / END
+
+/ new post link
+/ BEGIN
+= link_to t('.new_post'), new_post_path, class: 'me-4'
+/ END
