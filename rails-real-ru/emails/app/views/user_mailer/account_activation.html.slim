@@ -1,0 +1,5 @@
+h1
+  = t('user_mailer.account_activation.congratulation', user_name: @user.name)
+p
+  = t('user_mailer.account_activation.welcome_text')
+=  link_to t('user_mailer.account_activation.confirm'), confirm_user_url(confirmation_token: @user.confirmation_token)
